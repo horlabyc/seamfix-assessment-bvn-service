@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
@@ -43,7 +43,7 @@ export class AppService {
         {},
       );
       this.saveRequest(payload, response);
-      return response;
+      throw new HttpException(response, HttpStatus.BAD_REQUEST);
     }
     if (payload.bvn.length !== 11) {
       response = this.sendErrorResponse(
@@ -54,7 +54,7 @@ export class AppService {
         { bvn: payload.bvn },
       );
       this.saveRequest(payload, response);
-      return response;
+      throw new HttpException(response, HttpStatus.BAD_REQUEST);
     }
     if (!/^\d+$/.test(payload.bvn)) {
       response = this.sendErrorResponse(
@@ -65,7 +65,7 @@ export class AppService {
         { bvn: payload.bvn },
       );
       this.saveRequest(payload, response);
-      return response;
+      throw new HttpException(response, HttpStatus.BAD_REQUEST);
     }
     if (payload.bvn !== '11223344556') {
       response = this.sendErrorResponse(
@@ -76,7 +76,7 @@ export class AppService {
         { bvn: payload.bvn },
       );
       this.saveRequest(payload, response);
-      return response;
+      throw new HttpException(response, HttpStatus.BAD_REQUEST);
     }
     response = this.sendSuccessResponse({
       Bvn: payload.bvn,
