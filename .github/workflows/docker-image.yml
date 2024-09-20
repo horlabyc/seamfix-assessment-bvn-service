@@ -1,0 +1,5 @@
+name: Publish Image
+
+on:
+  push:
+    branches: [ "main" ]
